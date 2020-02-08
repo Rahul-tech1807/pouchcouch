@@ -1,15 +1,16 @@
 <template>
     <div class="mt">
   <b-navbar toggleable="lg" type="dark" variant="info">
-    <b-navbar-brand href="#">LiveStore</b-navbar-brand>
+    <b-navbar-brand><router-link to="/" class="link">LiveStore</router-link></b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav>
-        <b-nav-item href="#">Home</b-nav-item>
-        <b-nav-item href="#">About</b-nav-item>
-        <b-nav-item href="#">contact</b-nav-item>
+        <b-nav-item><router-link to="/" class="link">home</router-link></b-nav-item>
+        <b-nav-item><router-link to="/about" class="link">about</router-link></b-nav-item>
+        <b-nav-item><router-link to="/contact" class="link">contact</router-link></b-nav-item>
+
       </b-navbar-nav>
 
       <!-- Right aligned nav items -->
@@ -20,7 +21,7 @@
         </b-nav-form>
 
         <b-nav-item-dropdown text="Services" right>
-          <b-dropdown-item href="#">Add New Record</b-dropdown-item>
+          <b-dropdown-item><router-link to="/" class="link-drop">Add New Record</router-link></b-dropdown-item>
         </b-nav-item-dropdown>
 
         <b-nav-item-dropdown right>
@@ -41,6 +42,15 @@
 .mt{
     position : fixed;
     width : 100% ;
-    margin-top : -85px;
+    margin-top : -60px;
+}
+.link{
+    color : #ffffff;
+}
+.link:hover{
+  color: black;
+}
+.link-drop{
+  color: black;
 }
 </style>
