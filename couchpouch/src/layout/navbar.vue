@@ -7,7 +7,7 @@
 
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav>
-        <router-link to="/" tag="b-nav-item" active-class="active" class="link" exact>home</router-link>
+        <router-link to="/home" tag="b-nav-item" active-class="active" class="link" exact>home</router-link>
         <router-link to="/about" tag="b-nav-item" active-class="active" class="link">about</router-link>
         <router-link to="/contact" tag="b-nav-item" active-class="active" class="link">contact</router-link>
 
@@ -42,7 +42,7 @@
 .mt{
     position : fixed;
     width : 100% ;
-    margin-top : -60px;
+    margin-top : 0;
 }
 .link{
     color : #ffffff;

@@ -1,28 +1,28 @@
 <template>
-  <div id="app">
-    <navbar/>
-    <router-view></router-view>
-  </div>
+<div id="app">
+  <v-content>
+      <loginform/>
+  </v-content>
+      <router-view></router-view>
+</div>
 </template>
 
 <script>
-import navbar from './layout/navbar.vue'
+// import HelloWorld from './components/HelloWorld';
+import loginform from './components/loginform';
+// import home from './components/home';
+// import navbar from './layout/navbar';
+
 
 export default {
   name: 'App',
   components: {
-    navbar
-  }
-}
-</script>
+    // HelloWorld,
+    loginform,
+  },
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+  data: () => ({
+    // 
+  }),
+};
+</script>
