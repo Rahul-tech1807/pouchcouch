@@ -7,9 +7,9 @@
 
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav>
-        <b-nav-item><router-link to="/" class="link">home</router-link></b-nav-item>
-        <b-nav-item><router-link to="/about" class="link">about</router-link></b-nav-item>
-        <b-nav-item><router-link to="/contact" class="link">contact</router-link></b-nav-item>
+        <router-link to="/" tag="b-nav-item" active-class="active" class="link" exact>home</router-link>
+        <router-link to="/about" tag="b-nav-item" active-class="active" class="link">about</router-link>
+        <router-link to="/contact" tag="b-nav-item" active-class="active" class="link">contact</router-link>
 
       </b-navbar-nav>
 
