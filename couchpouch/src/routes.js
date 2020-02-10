@@ -5,7 +5,7 @@ import contact from './components/contact.vue'
 // import navbar from './layout/navbar.vue'
 
 export const routes = [
-     // {path: '/' , component : loginform},
+     // {path: '/' , component : loginform , redirect : '/login'},
      {path: '/home' , component : home },
      {path: '/about' , component : about },
      {path: '/contact' , component : contact }
