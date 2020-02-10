@@ -1,8 +1,12 @@
 <template>
 <div id="app">
       <!-- <loginform/> -->
+      <div style="height: 70px;">
       <navbar/>
+      </div>
+      <div>
       <router-view/>
+      </div>
 </div>
 </template>
 
