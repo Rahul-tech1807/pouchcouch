@@ -1,9 +1,9 @@
 <template>
 <div id="app">
       <!-- <loginform/> -->
-      <div style="height: 70px;">
+      <!-- <div style="height: 70px;">
       <navbar/>
-      </div>
+      </div> -->
       <div>
       <router-view/>
       </div>
@@ -14,7 +14,7 @@
 // import HelloWorld from './components/HelloWorld';
 // import loginform from './components/loginform';
 // import home from './components/home';
-import navbar from './layout/navbar';
+// import navbar from './layout/navbar';
 
 
 export default {
@@ -22,7 +22,7 @@ export default {
   components: {
     // HelloWorld,
     // loginform,
-    navbar,
+    // navbar,
   },
 
   data: () => ({
