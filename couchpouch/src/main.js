@@ -8,8 +8,17 @@ import VueRouter from 'vue-router';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import vuetify from './plugins/vuetify';
+import PouchDB from 'pouchdb-browser';
+// import PouchDBFind from 'pouchdb-find';
 
-Vue.config.productionTip = false;
+import PouchVue from 'pouch-vue';
+
+Vue.use(PouchVue, {
+    pouch: PouchDB, // optional if `PouchDB` is available on the global object
+    // defaultDB: `${getEndpoints().couch}/fares`,
+    //debug: '*',
+});
+
 
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);

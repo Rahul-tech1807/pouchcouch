@@ -1,5 +1,4 @@
 <template>
-  <div>
   <div class="mt">
   <b-navbar toggleable="lg" type="dark" variant="info">
     <b-navbar-brand><router-link to="/home" class="link">LiveStore</router-link></b-navbar-brand>
@@ -36,13 +35,130 @@
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>
-</div>
-    Welcome to our Homepage.
+     <div class="container">
+      <h1>{{title}}</h1>
+      <div class="row">
+        <div class="col-md-8">
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>id</th>
+                <th>name</th>
+                <th>phone</th>
+                <th width="320">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="item in items" v-bind:key="item._id">
+                <td>{{ item._id }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.phone }}</td>
+                <td class="text-center">
+                  <button @click="edit(item)" class="btn btn-warning btn-sm">Edit</button>
+                  <button @click="destroy(item)" class="btn btn-danger btn-sm">Trash</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-md-4">
+          <form>
+            <div class="form-group">
+              <label>id</label>
+              <input type="text" v-model="input._id" placeholder="enter ID" class="form-control" />
+            </div>
+            <div class="form-group">
+              <label>name</label>
+              <input type="text" v-model="input.name" placeholder="enter Name" class="form-control" />
+            </div>
+            <div class="form-group">
+              <label>phone</label>
+              <input type="text" v-model="input.phone" placeholder="enter Phone Number" class="form-control" />
+            </div>
+            <button v-if="savebtn" @click.prevent="save" class="btn btn-primary">save</button>
+            <button v-if="updatebtn" @click.prevent="update(input._id)" class="btn btn-warning">update</button>
+            <button @click="clear()" class="btn btn-info">clear</button>
+          </form>
+        </div>
+      </div> 
+    </div>
   </div>
 </template>
 
 <script>
+export default ({
+  data : () => ({
+    title: 'pouchDB',
+     items: [],
+     input: {
+       _id: "",
+       name: "",
+       phone: ""
+     },
+     savebtn: true,
+     updatebtn: false
+   }),
+   created: function() {
+     this.view()
+     this.$pouch.sync('localdb', 'http://localhost:5984/remotedb')
+   },
+   methods: {
+     view: function() {
+      let vm = this
+      this.$pouch.allDocs('localdb').then(function(response){
+          for(var i = 0; i<response.rows.length; i++){
+            vm.items.push(response.rows[1].doc)
+          }
+      })
+     },
+     save: function() {
+       var id = this.input._id
+       var nm = this.input.name
+       var ph = this.input.phone
+      this.$pouch.put({
+        _id: id, 
+         name: nm,
+         phone: ph}, 'localdb')
+       this.items.push({_id: id, name: nm, phone: ph})
+       this.clear();
+     },
+     clear : function() {
+       this.savebtn = true
+       this.updatebtn = false
+       this.input._id = ""
+       this.input.name = ""
+       this.input.phone = ""
+     },
+     edit: function(item) {
+       this.savebtn = false
+       this.updatebtn = true
+       this.input._id = item.id
+       this.input.name = item.name
+       this.input.phone = item.phone
+     },
+    //  update: function(id) {
+    //    var myid = id - 1
+    //    object.assign(this.items[myid], this.input)
+    //    var nm = this.input.name
+    //    var ph = this.input.phone
+    //    db.get(id).then(function(doc) {
+    //      return db.put({
+    //        id: id,
+    //        _rev: doc._rev,
+    //        name: nm,
+    //        phone: ph
+    //      })
 
+    //    }).then(function(response) {
+
+    //    }).catch(function(error) {
+    //      console.log(error)
+    //    })
+
+    //    this.clear()
+    //  }
+   }
+})
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

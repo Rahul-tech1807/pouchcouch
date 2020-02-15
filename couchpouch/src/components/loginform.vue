@@ -27,7 +27,6 @@
 </template>
 <script>
     export default({
-        name : 'login page',
         data : () => ({
             email : '',
             password : '',
