@@ -48,7 +48,7 @@
                 <th width="320">Actions</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody v-if="items">
               <tr v-for="item in items" v-bind:key="item._id">
                 <td>{{ item._id }}</td>
                 <td>{{ item.name }}</td>
@@ -99,18 +99,13 @@ export default ({
      updatebtn: false
    }),
    created: function() {
-     this.view()
-     this.$pouch.sync('localdb', 'http://localhost:5984/remotedb')
+     let vm = this
+      this.$pouch.allDocs({include_docs:true}, 'localdb').then(function(response){
+          for(var i = 0; i<response.rows.length; i++)
+          vm.items.push(response.rows[i].doc)
+        })
    },
    methods: {
-     view: function() {
-      let vm = this
-      this.$pouch.allDocs('localdb').then(function(response){
-          for(var i = 0; i<response.rows.length; i++){
-            vm.items.push(response.rows[1].doc)
-          }
-      })
-     },
      save: function() {
        var id = this.input._id
        var nm = this.input.name
@@ -136,6 +131,11 @@ export default ({
        this.input.name = item.name
        this.input.phone = item.phone
      },
+     destroy: function(item){
+       this.$pouch.remove({include_docs:true},'localdb', 
+       item.id =item._id,
+       item.rev = item._rev)
+     }
     //  update: function(id) {
     //    var myid = id - 1
     //    object.assign(this.items[myid], this.input)
@@ -157,6 +157,9 @@ export default ({
 
     //    this.clear()
     //  }
+   },
+   mounted : function() {
+      this.$pouch.sync('localdb', 'http://localhost:5984/remotedb')
    }
 })
 </script>
