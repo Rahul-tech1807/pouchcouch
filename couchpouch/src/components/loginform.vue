@@ -14,6 +14,7 @@
             <v-form v-model="isValid">
             <v-text-field v-model="email" name="Username" label="Username"  :rules="[v => !!v || 'Email is required']" required></v-text-field>
             <v-text-field v-model="password" name="Password" label="Password" type="password" :rules="[v => !!v || 'Password is required']" required></v-text-field>
+            <small v-if="incorrectPassword === true "> Incorrect Password. Try Again! </small>
             <v-card-actions>
               <v-btn primary large block @click="onLogIn" :disabled="!isValid">Login</v-btn>
             </v-card-actions>
@@ -30,7 +31,8 @@
         data : () => ({
             email : '',
             password : '',
-            isValid : true
+            isValid : true,
+            incorrectPassword : false
 
         }),
         methods : {
@@ -38,7 +40,7 @@
                 if(this.email == 'test' && this.password == 'test'){
                     this.$router.push('/home')
                 }else{
-                    console.log("incorrect email or password")
+                  this.incorrectPassword = true
                 }
                 
             }

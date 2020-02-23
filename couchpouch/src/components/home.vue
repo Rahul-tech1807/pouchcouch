@@ -30,7 +30,7 @@
             <em>User</em>
           </template>
           <b-dropdown-item href="#">Profile</b-dropdown-item>
-          <b-dropdown-item href="#">Sign Out</b-dropdown-item>
+          <b-dropdown-item href="#" @click="signOut">Sign Out</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-collapse>
@@ -135,6 +135,9 @@ export default ({
        this.$pouch.remove({include_docs:true},'localdb', 
        item.id =item._id,
        item.rev = item._rev)
+     },
+     signOut(){
+       this.$router.push('/')
      }
     //  update: function(id) {
     //    var myid = id - 1
