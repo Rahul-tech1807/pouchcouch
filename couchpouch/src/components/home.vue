@@ -7,8 +7,8 @@
 
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav>
-        <router-link to="/home" tag="b-nav-item" active-class="active" class="link" exact>home</router-link>
-        <router-link to="/about" tag="b-nav-item" active-class="active" class="link">about</router-link>
+        <router-link to="/home" tag="b-nav-item" active-class="active" class="link" exact>All Records</router-link>
+        <router-link to="/addrecord" tag="b-nav-item" active-class="active" class="link">Add Record</router-link>
         <router-link to="/contact" tag="b-nav-item" active-class="active" class="link">contact</router-link>
 
       </b-navbar-nav>
@@ -37,50 +37,33 @@
   </b-navbar>
      <div class="container">
       <h1>{{title}}</h1>
-      <div class="row">
-        <div class="col-md-8">
-          <table class="table table-bordered table-striped">
-            <thead>
+          <table class="table table-bordered">
+            <thead class="table-dark">
               <tr>
-                <th>id</th>
-                <th>name</th>
-                <th>phone</th>
-                <th width="320">Actions</th>
+                <th>Id</th>
+                <th>Name Of Student</th>
+                <th>Phone Number</th>
+                <th>Email</th>
+                <th>Roll Number</th>
+                <th>Subjects</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody v-if="items">
-              <tr v-for="item in items" v-bind:key="item._id">
+              <tr v-for="item in items" v-bind:key="item._id" >
                 <td>{{ item._id }}</td>
                 <td>{{ item.name }}</td>
                 <td>{{ item.phone }}</td>
-                <td class="text-center">
-                  <button @click="edit(item)" class="btn btn-warning btn-sm">Edit</button>
-                  <button @click="destroy(item)" class="btn btn-danger btn-sm">Trash</button>
+                <td>{{ item.email }}</td>
+                <td>{{ item.rollNo }}</td>
+                <td>{{ item.subjects }}</td>
+                <td>
+                  <button @click="edit(item)" class="btn btn-primary btn-sm">Edit</button>
+                  <button @click="destroy(item)" class="btn btn-danger btn-sm" style="margin-left: 2px;">Trash</button>
                 </td>
               </tr>
             </tbody>
           </table>
-        </div>
-        <div class="col-md-4">
-          <form>
-            <div class="form-group">
-              <label>id</label>
-              <input type="text" v-model="input._id" placeholder="enter ID" class="form-control" />
-            </div>
-            <div class="form-group">
-              <label>name</label>
-              <input type="text" v-model="input.name" placeholder="enter Name" class="form-control" />
-            </div>
-            <div class="form-group">
-              <label>phone</label>
-              <input type="text" v-model="input.phone" placeholder="enter Phone Number" class="form-control" />
-            </div>
-            <button v-if="savebtn" @click.prevent="save" class="btn btn-primary">save</button>
-            <button v-if="updatebtn" @click.prevent="update(input._id)" class="btn btn-warning">update</button>
-            <button @click="clear()" class="btn btn-info">clear</button>
-          </form>
-        </div>
-      </div> 
     </div>
   </div>
 </template>
@@ -88,54 +71,42 @@
 <script>
 export default ({
   data : () => ({
-    title: 'pouchDB',
+    title: 'List Of Students',
      items: [],
      input: {
        _id: "",
        name: "",
-       phone: ""
+       phone: "",
+       email: "",
+       rollNo: "",
+       subjects: ""
      },
      savebtn: true,
      updatebtn: false
    }),
    created: function() {
      let vm = this
-      this.$pouch.allDocs({include_docs:true}, 'localdb').then(function(response){
+      this.$pouch.allDocs({include_docs:true}, 'newdb').then(function(response){
           for(var i = 0; i<response.rows.length; i++)
           vm.items.push(response.rows[i].doc)
         })
    },
    methods: {
-     save: function() {
-       var id = this.input._id
-       var nm = this.input.name
-       var ph = this.input.phone
-      this.$pouch.put({
-        _id: id, 
-         name: nm,
-         phone: ph}, 'localdb')
-       this.items.push({_id: id, name: nm, phone: ph})
-       this.clear();
-     },
-     clear : function() {
-       this.savebtn = true
-       this.updatebtn = false
-       this.input._id = ""
-       this.input.name = ""
-       this.input.phone = ""
-     },
      edit: function(item) {
        this.savebtn = false
        this.updatebtn = true
        this.input._id = item.id
        this.input.name = item.name
        this.input.phone = item.phone
+       this.input.email = item.email
+       this.input.rollNo = item.rollNo
+       this.input.subjects = item.subjects
      },
-     destroy: function(item){
-       this.$pouch.remove({include_docs:true},'localdb', 
-       item.id =item._id,
-       item.rev = item._rev)
-     },
+    //  destroy: function(item){
+    //    this.$pouch.remove({include_docs:true},'newdb', 
+    //    item.id =item._id,
+    //    item.rev = item._rev)
+    //  },
      signOut(){
        this.$router.push('/')
      }
@@ -162,7 +133,7 @@ export default ({
     //  }
    },
    mounted : function() {
-      this.$pouch.sync('localdb', 'http://localhost:5984/remotedb')
+      this.$pouch.sync('newdb', 'http://localhost:5984/newdb')
    }
 })
 </script>

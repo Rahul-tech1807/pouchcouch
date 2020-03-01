@@ -1,11 +1,11 @@
 import home from './components/home.vue'
-import about from './components/about.vue'
+import addrecord from './components/addrecord.vue'
 import contact from './components/contact.vue'
 import loginform from './components/loginform.vue'
 
 export const routes = [
      {path: '/' , component : loginform},
      {path: '/home' , component : home },
-     {path: '/about' , component : about },
+     {path: '/addrecord' , component : addrecord },
      {path: '/contact' , component : contact }
 ];

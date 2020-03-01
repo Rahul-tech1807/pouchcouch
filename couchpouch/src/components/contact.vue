@@ -8,8 +8,8 @@
 
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav>
-        <router-link to="/home" tag="b-nav-item" active-class="active" class="link" exact>home</router-link>
-        <router-link to="/about" tag="b-nav-item" active-class="active" class="link">about</router-link>
+        <router-link to="/home" tag="b-nav-item" active-class="active" class="link" exact>All Records</router-link>
+        <router-link to="/addrecord" tag="b-nav-item" active-class="active" class="link">Add Record</router-link>
         <router-link to="/contact" tag="b-nav-item" active-class="active" class="link">contact</router-link>
 
       </b-navbar-nav>
