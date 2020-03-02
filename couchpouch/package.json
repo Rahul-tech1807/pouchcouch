@@ -18,6 +18,7 @@
     "pouchdb-live-find": "^0.4.0",
     "vue": "^2.6.11",
     "vue-router": "^3.1.5",
+    "vue-sweetalert": "^0.1.18",
     "vuetify": "^2.1.0"
   },
   "devDependencies": {

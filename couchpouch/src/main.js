@@ -12,6 +12,9 @@ import PouchDB from 'pouchdb-browser';
 // import PouchDBFind from 'pouchdb-find';
 
 import PouchVue from 'pouch-vue';
+import VueSweetAlert from 'vue-sweetalert'
+ 
+Vue.use(VueSweetAlert)
 
 Vue.use(PouchVue, {
     pouch: PouchDB, // optional if `PouchDB` is available on the global object

@@ -37,39 +37,32 @@
     </b-collapse>
   </b-navbar>
 </div>
-    <div class="row">
-        <div class="col-md-4">
-          <form>
-            <div class="form-group">
-              <label>Id</label>
-              <input type="text" v-model="input._id" placeholder="Enter ID" class="form-control" />
-            </div>
-            <div class="form-group">
-              <label>Name</label>
-              <input type="text" v-model="input.name" placeholder="Eenter Name" class="form-control" />
-            </div>
-            <div class="form-group">
-              <label>Phone</label>
-              <input type="text" v-model="input.phone" placeholder="Enter Phone Number" class="form-control" />
-            </div>
-            <div class="form-group">
-              <label>Email</label>
-              <input type="text" v-model="input.email" placeholder="Enter Email Address" class="form-control" />
-            </div>
-            <div class="form-group">
-              <label>Roll Number</label>
-              <input type="text" v-model="input.rollNo" placeholder="Enter Roll Number" class="form-control" />
-            </div>
-            <div class="form-group">
-              <label>Subjects</label>
-              <input type="text" v-model="input.subjects" placeholder="Enter Subjects" class="form-control" />
-            </div>
-            <button v-if="savebtn" @click.prevent="save" class="btn btn-success">save</button>
-            <button v-if="updatebtn" @click.prevent="update(input._id)" class="btn btn-warning">update</button>
-            <button @click="clear()" class="btn btn-info" style="margin-left: 2px;">clear</button>
-          </form>
-        </div>
-        </div>
+<v-container>
+  <v-layout>
+          <v-card flat>
+            <v-card-title primary-title>
+              <h4>Enter Student's Detail</h4>
+            </v-card-title>
+          <v-form v-model="isValid">
+            <v-label>Id</v-label>
+              <v-text-field label="Enter Id" v-model="input._id" solo counter clearable loading></v-text-field>
+            <v-label>Name</v-label>
+              <v-text-field label="Enter Name" v-model="input.name" solo loading counter clearable></v-text-field>
+            <v-label>Phone Number</v-label>
+              <v-text-field label="Enter Phone Number" v-model="input.phone" solo loading counter clearable></v-text-field>
+            <v-label>Email</v-label>
+              <v-text-field label="Enter Email" v-model="input.email" solo loading counter clearable></v-text-field>
+            <v-label>Roll Number</v-label>
+              <v-text-field label="Enter Roll Number" v-model="input.rollNo" solo loading counter clearable></v-text-field>
+            <v-label>Subjects</v-label>
+              <v-text-field label="Enter Subjects" v-model="input.subjects" solo loading counter clearable></v-text-field>
+            <v-btn @click.prevent="save" success :disabled="!isValid">save</v-btn>
+            <v-btn v-if="updatebtn" @click.prevent="update(input._id)" class="btn btn-warning">update</v-btn>
+            <v-btn @click="clear()" info style="margin-left: 2px;">clear</v-btn>
+          </v-form>
+          </v-card>
+  </v-layout>
+</v-container>
   </div>
 </template>
 
@@ -77,6 +70,7 @@
 <script>
 export default ({
   data : () => ({
+    isValid : true,
      items: [],
      input: {
        _id: "",
@@ -86,7 +80,6 @@ export default ({
        rollNo: "",
        subjects: ""
      },
-     savebtn: true,
      updatebtn: false
    }),
    methods: {
@@ -112,8 +105,8 @@ export default ({
          rollNo: roll,
          subjects: sub
          })
-       this.clear();
-        // this.$router.push('/home')
+         this.$swal('Congratulation!', "Your Record has been saved successfully.")
+         this.clear()
        
      },
      clear : function() {
@@ -126,7 +119,7 @@ export default ({
        this.input.rollNo = ""
        this.input.subjects = ""
        
-     }
+     },
    }
 })
 
