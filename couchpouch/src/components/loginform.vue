@@ -12,12 +12,11 @@
               <h4>Login</h4>
             </v-card-title>
             <v-form v-model="isValid">
-            <v-text-field v-model="email" name="Username" label="Username"  :rules="[v => !!v || 'Email is required']" required></v-text-field>
-            <v-text-field v-model="password" name="Password" label="Password" type="password" :rules="[v => !!v || 'Password is required']" required></v-text-field>
+            <v-text-field v-model="loginUser._id" name="Username" outlined placeholder="Enter User Id"  :rules="[v => !!v || 'Id is required']" required></v-text-field>
+            <v-text-field v-model="loginUser.password" name="Password" outlined placeholder="Enter Password" type="password" :rules="[v => !!v || 'Password is required']" required></v-text-field>
             <small v-if="incorrectPassword === true "> Incorrect Password. Try Again! </small>
-            <v-card-actions>
               <v-btn primary large block @click="onLogIn" :disabled="!isValid">Login</v-btn>
-            </v-card-actions>
+              <v-btn class="mt-2" primary large block @click="register">Register</v-btn>
             </v-form>
           </v-card>
         </v-container>
@@ -28,22 +27,31 @@
 </template>
 <script>
     export default({
+      name: 'loginform',
         data : () => ({
-            email : '',
-            password : '',
+          loginUser: {
+            _id : '',
+            password : ''
+            },
             isValid : true,
             incorrectPassword : false
 
         }),
         methods : {
             onLogIn(){
-                if(this.email == 'test' && this.password == 'test'){
+                if(this.loginUser._id == 'test' && this.loginUser.password == 'test'){
                     this.$router.push('/home')
                 }else{
                   this.incorrectPassword = true
                 }
                 
+            },
+            register(){
+              this.$router.push('/register')
             }
+        },
+        mounted(){
+          this.$pouch.sync('users', 'http://localhost:5984/users')
         }
     })
 </script>
