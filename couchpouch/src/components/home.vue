@@ -50,9 +50,9 @@
       </b-collapse>
     </b-navbar>
     <div class="container">
-      <h1>{{title}}</h1>
-      <table class="table table-bordered">
-        <thead class="table-dark">
+      <h1 class="text-white bg-info text-center">{{title}}</h1>
+      <table class="table table-bordered table-hover text-center">
+        <thead class="thead-light font-weight-bold text-center">
           <tr>
             <th>Id</th>
             <th>Name Of Student</th>
@@ -76,7 +76,7 @@
               <button
                 @click="destroy(item)"
                 class="btn btn-danger btn-sm"
-                style="margin-left: 2px;"
+                style="margin-left: 8px;"
               >Trash</button>
             </td>
           </tr>
@@ -104,9 +104,7 @@ export default {
   }),
   created: function() {
     let vm = this;
-    this.$pouch
-      .allDocs({ include_docs: true }, "newdb")
-      .then(function(response) {
+    this.$pouch.allDocs({ include_docs: true }, "newdb").then(function(response) {
         for (var i = 0; i < response.rows.length; i++)
           vm.items.push(response.rows[i].doc);
       });
